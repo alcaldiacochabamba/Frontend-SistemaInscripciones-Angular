@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  base_url: 'http://funcionario_carrera_api.cochabamba.bo/api',
-  base_url_public: 'http://funcionario_carrera_api.cochabamba.bo'
+  base_url: 'http://appdev_api.cochabamba.bo/api',
+  base_url_public: 'http://appdev_api.cochabamba.bo'
 };
