@@ -1,0 +1,78 @@
+
+<div class="row animated fadeIn fast"
+*ngIf="regSoli.length === 0 && loading === false">
+<div class="col-12">
+  <div class="alert bg-2665C  text-center">
+    <h4 class="alert-heading text-white">Información</h4>
+    <i class="fa fa-spin fa-refresh fa-2x text-white"></i>
+    <p class="mb-0 text-white">No se encontraron registros</p>
+</div>
+</div>
+</div>
+<p-table  *ngIf="!loading" [value]="regSoli" styleClass="p-datatable-sm p-datatable-striped animated fadeIn"
+    [scrollable]="true" [scrollHeight]="heigthtable"  [resizableColumns]="true" [rowHover]="true" >
+<ng-template pTemplate="caption">
+<div class="text-center">
+<p-dropdown [options]="searchFor" [(ngModel)]="searchSelect" placeholder="Buscar por:"  optionLabel="name" optionValue="code"></p-dropdown>
+<span class="p-input-icon-right ms-2 mt-1">
+    <i class="pi pi-search"></i>
+    <input type="text" style="text-transform:uppercase"
+        pInputText placeholder="Escriba para filtrar..."
+        [formControl]="txtTermino"
+        (keyup)="searchDewey()"
+    />
+</span>
+</div>
+</ng-template>
+<ng-template pTemplate="header">
+<tr>
+<th pSortableColumn="id" style="min-width:250px;max-width:250px">Codigo<p-sortIcon></p-sortIcon></th>
+<th pSortableColumn="nameactor" style="min-width:350px;max-width:350px">Nombre actor<p-sortIcon></p-sortIcon></th>
+<th pSortableColumn="typeConstitution" style="min-width:200px">Proyecto<p-sortIcon></p-sortIcon></th>
+<th pSortableColumn="status" style="min-width:150px">Estado<p-sortIcon></p-sortIcon>
+  </th>
+<th style="min-width:120px">Opciones</th>
+</tr>
+</ng-template>
+<ng-template pTemplate="body" let-regSoli>
+<tr>
+<td style="min-width:250px;max-width:250px"
+    [pTooltip] ="regSoli.id" tooltipPosition="top"
+    >
+    {{regSoli.id}}</td>
+<td style="min-width:350px;max-width:350px"
+    [pTooltip] ="regSoli.nameactor" tooltipPosition="top">
+    {{regSoli.nameactor}}
+</td>
+<td style="min-width:200px"
+    [pTooltip] ="regSoli.typeConstitution" tooltipPosition="top">
+    {{regSoli.typeConstitution}}
+</td>
+<td style="min-width: 150px">
+    <p-tag
+      styleClass="mr-2"
+      [rounded]="true"
+      [icon]="regSoli.status ? 'pi pi-check' : 'pi pi-times'"
+      [severity]="regSoli.status ? 'success' : 'danger'"
+      [value]="regSoli.status ? 'Enviado' : 'Pendiente'"
+    ></p-tag>
+</td>
+<td style="min-width:120px">
+    <div *ngIf="regSoli.status; else inactivoButton">
+        <button pButton pTooltip="Editar"  tooltipPosition="bottom" (click)="editDeweyShowModal(regSoli)" pRipple icon="pi pi-pencil" class="p-button-rounded p-button-help"></button>
+        <!-- <button pButton pTooltip="Inactivar"  tooltipPosition="bottom" (click)="inactivarDewey(regSoli)" pRipple icon="pi pi-lock" class="p-button-rounded p-button-warning ms-1"></button> -->
+
+    </div>
+    <ng-template #inactivoButton>
+        <!-- <button pButton pTooltip="Activar"  tooltipPosition="bottom" (click)="activarDewey(regSoli)"pRipple icon="pi pi-unlock" class="p-button-rounded p-button-success ms-1"></button> -->
+    </ng-template>
+</td>
+</tr>
+</ng-template>
+</p-table>
+<p-paginator [rows]="rows" [rowsPerPageOptions]="[50,100,200]"
+(onPageChange)="paginate($event)" [showCurrentPageReport]="true"
+currentPageReportTemplate="Mostrando del {{from}} al {{to}} total de {{total}}"
+[totalRecords]="total">
+</p-paginator>
+
