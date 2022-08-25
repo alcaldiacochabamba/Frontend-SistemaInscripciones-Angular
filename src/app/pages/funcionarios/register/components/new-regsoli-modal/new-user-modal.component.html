@@ -81,7 +81,11 @@
               incrementButtonClass="p-button-success"
               incrementButtonIcon="pi pi-plus"
               decrementButtonIcon="pi pi-minus"
+              inputId="minmax-buttons"
+              [min]="0"
+              [max]="100">
               mode="decimal" >
+
           </p-inputNumber>
           <small *ngIf="inputValid('yearExperience')" class="p-error block">{{
             messageError("yearExperience")
@@ -98,7 +102,7 @@
               [showButtons]="true"
               inputId="minmax-buttons"
               [min]="0"
-              [max]="100">
+              [max]="120">
             </p-inputNumber>
             <small *ngIf="inputValid('timeProposal')" class="p-error block">{{
               messageError("timeProposal")
