@@ -21,9 +21,10 @@ export class ModalNewUser implements OnInit, OnDestroy {
   public userForm: FormGroup = this.fb.group({
     id_regsoli: [''],
     nameactor: ['',[Validators.required,Validators.minLength(5), Validators.maxLength(174),this.validadorService.isSpacesInDinamicTxt]],
-    typeConstitution: [ '',[Validators.required,Validators.minLength(5), Validators.maxLength(174),this.validadorService.isSpacesInDinamicTxt]],
+    typeConstitution: [ ''],
     projectPlace: [ '', [ Validators.required, Validators.minLength(3), Validators.maxLength(170),this.validadorService.isSpacesInDinamicTxt],],
     yearExperience: [ '', [ Validators.required]],
+    inversionproject: [ '', [ Validators.required]],
     timeProposal:['', [ Validators.required]],
     financing: [true, [ Validators.required]],
     status:[true]
@@ -47,6 +48,7 @@ export class ModalNewUser implements OnInit, OnDestroy {
             typeConstitution: resp.typeConstitution,
             projectPlace: resp.projectPlace,
             yearExperience: resp.yearExperience,
+            inversionproject: resp.inversionproject,
             timeProposal: resp.timeProposal,
             financing: resp.financing,
             status: resp.status ? true : false
@@ -73,6 +75,7 @@ export class ModalNewUser implements OnInit, OnDestroy {
       typeConstitution: this.userForm.get('typeConstitution')?.value,
       projectPlace: this.userForm.get('projectPlace')?.value,
       yearExperience: this.userForm.get('yearExperience')?.value,
+      inversionproject: this.userForm.get('inversionproject')?.value,
       timeProposal: this.userForm.get('timeProposal')?.value,
       financing: this.userForm.get('financing')?.value,
       status: this.userForm.get('status')?.value ? 1 : 0,
@@ -99,6 +102,51 @@ export class ModalNewUser implements OnInit, OnDestroy {
           complete: () => {
             this.regsoliService.saving.emit(true);
             Swal.fire({ title: 'Exito', text: 'solicitud creada correctamente', icon: 'success',
+              showClass: { popup: 'animated animate fadeInDown' },
+            });
+          }
+        });
+  }
+
+
+  editRegSoli() {
+    this.userForm.markAllAsTouched();
+    if( this.userForm.invalid){
+      return;
+    }
+    this.loading = true;
+    let regsoli : Regsoli = {
+      nameactor: this.userForm.get('nameactor')?.value,
+      typeConstitution: this.userForm.get('typeConstitution')?.value,
+      projectPlace: this.userForm.get('projectPlace')?.value,
+      yearExperience: this.userForm.get('yearExperience')?.value,
+      inversionproject: this.userForm.get('inversionproject')?.value,
+      timeProposal: this.userForm.get('timeProposal')?.value,
+      financing: this.userForm.get('financing')?.value,
+      status: this.userForm.get('status')?.value ? 1 : 0,
+    }
+    this.regsoliService.puUpdateRegSoli(regsoli, this.userForm.get('id_regsoli')?.value)
+        .subscribe({
+          next: (resp) => {
+            this.loading = false;
+            this.resetRegsoli();
+            this.closeModal();
+          },
+          error: (e) => {
+            this.loading = false;
+            this.resetRegsoli();
+            this.closeModal();
+            this.errorLogsService.logDeErrores(e, ()=> {
+              const errors = e.error.errors;
+              const msg = errors.regsoli ? errors.regsoli  : errors.status ? errors.status : 'Los datos no son validos, Intenta nuevamente';
+              Swal.fire({ title: 'Oops...', text: msg, icon: 'info',
+                showClass: { popup: 'animated animate fadeInDown' },
+              });
+            });
+          },
+          complete: () => {
+            this.regsoliService.saving.emit(true);
+            Swal.fire({ title: 'Exito', text: 'solicitud actualizada correctamente', icon: 'success',
               showClass: { popup: 'animated animate fadeInDown' },
             });
           }

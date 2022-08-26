@@ -7,7 +7,6 @@ import { UsersService } from 'src/app/pages/funcionarios/services/users.service'
 import { ErrorLogsService } from 'src/app/services/error-logs.service';
 import { ValidatorsService } from 'src/app/services/validators.service';
 import Swal from 'sweetalert2';
-import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-register-user',
@@ -24,7 +23,7 @@ export class RegisterUserComponent implements OnInit, OnDestroy {
     ci: ['',[Validators.required,Validators.min(9999), Validators.max(999999999)]],
     name: [ '', [ Validators.required, Validators.minLength(4), Validators.maxLength(75),this.validadorService.isSpacesInDinamicTxt],],
     paternal: [ '', [ Validators.required, Validators.minLength(3), Validators.maxLength(170),this.validadorService.isSpacesInDinamicTxt],],
-    maternal: [ '', [ Validators.minLength(3), Validators.maxLength(170),this.validadorService.isSpacesInDinamicTxt],],
+    maternal: [ ''],
     cellphone:['',[Validators.required,Validators.min(9999999), Validators.max(999999999)]],
     email: ['',[Validators.required, Validators.pattern(this.validadorService.emailPattern)]],
     password:['',[ Validators.required, Validators.minLength(8), this.validadorService.isSpacesInPassword]],

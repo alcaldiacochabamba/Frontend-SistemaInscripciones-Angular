@@ -124,6 +124,9 @@ export class TableRegsolisComponent implements OnInit, OnDestroy {
     this.regsoliService.editSubs.emit(regsoli);
     this.regsoliService.setModalRegsoli = true;
   }
+  printPdf(regsoli: Regsoli){
+    this.regsoliService.getNewPaginaPdfOpen(regsoli);
+  }
 
   inactivarDewey(regsoli: Regsoli) {
     const regsoliServiceU = {...regsoli};

@@ -16,6 +16,7 @@ import { DialogModule } from 'primeng/dialog';
 import { TagModule } from 'primeng/tag';
 import {PaginatorModule} from 'primeng/paginator';
 import {InputSwitchModule} from 'primeng/inputswitch';
+import {FieldsetModule} from 'primeng/fieldset';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import {InputSwitchModule} from 'primeng/inputswitch';
     DialogModule,
     TagModule,
     PaginatorModule,
-    InputSwitchModule
+    InputSwitchModule,
+    FieldsetModule
   ]
 })
 export class PagesModule { }

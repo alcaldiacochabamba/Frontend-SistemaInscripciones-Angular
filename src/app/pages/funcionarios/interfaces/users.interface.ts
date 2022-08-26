@@ -19,7 +19,7 @@ export interface Users {
   ci:        number;
   name:      string;
   paternal:  string;
-  maternal:  string;
+  maternal?:  string;
   cellphone: string;
   email:     string;
   password?: string;

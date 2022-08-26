@@ -5,7 +5,7 @@
   [(visible)]="regsoliService._displayModalRegsoli"
   [modal]="true"
   [breakpoints]="{ '960px': '75vw', '576PX': '95%' }"
-  [style]="{ width: '35vw' }"
+  [style]="{ width: '70vw' }"
   [draggable]="false"
   [resizable]="false"
 >
@@ -14,14 +14,14 @@
       <div class="field col-12">
         <div class="field">
           <label class="block"
-            >Nombre Actor Privado <span class="text-danger">*</span></label
+            >Nombre del interesado <span class="text-danger">*</span></label
           >
           <input
             type="text"
             style="text-transform: uppercase"
             pInputText
             formControlName="nameactor"
-            placeholder="EJ. Ampliacion proyecto ambiental"
+            placeholder="EJ. PERSONA/ENTIDAD/INSTITUCION"
             class="mt-1"
             [class.ng-dirty]="inputValid('nameactor')"
           />
@@ -31,14 +31,14 @@
         </div>
         <div class="field">
           <label class="block"
-            >Tipo de Constitucion <span class="text-danger">*</span></label
+            >Tipo de Constitucion (Si corresponde)<span class="text-danger">*</span></label
           >
           <input
             type="text"
             style="text-transform: uppercase"
             pInputText
             formControlName="typeConstitution"
-            placeholder="EJ. Ampliacion proyecto ambiental"
+            placeholder="EJ. CONSTITUCION, 1826"
             class="mt-1"
             [class.ng-dirty]="inputValid('typeConstitution')"
           />
@@ -48,14 +48,14 @@
         </div>
         <div class="field">
           <label class="block"
-            >Proyecto donde se presentara <span class="text-danger">*</span></label
+            >Nombre del proyecto de interés <span class="text-danger">*</span></label
           >
           <input
             type="text"
             style="text-transform: uppercase"
             pInputText
             formControlName="projectPlace"
-            placeholder="EJ. COCHABAMBA"
+            placeholder="EJ. CIUDAD INTELIGENTE"
             class="mt-1"
             [class.ng-dirty]="inputValid('projectPlace')"
           />
@@ -63,52 +63,77 @@
             >{{messageError('projectPlace')}}</small
           >
         </div>
-        <div class="row mt-2">
-          <div class="col">
-            <label class="block"
-              >Años de experiencia <span class="text-danger">*</span></label
-            >
-            <p-inputNumber
-              formControlName = "yearExperience"
-              [showButtons]="true"
-              buttonLayout="horizontal"
-              [class.ng-dirty]="inputValid('yearExperience')"
-              class="mt-1"
-              inputId="horizontal"
-              spinnerMode="horizontal"
-              [step]="1"
-              decrementButtonClass="p-button-danger"
-              incrementButtonClass="p-button-success"
-              incrementButtonIcon="pi pi-plus"
-              decrementButtonIcon="pi pi-minus"
-              inputId="minmax-buttons"
-              [min]="0"
-              [max]="100">
-              mode="decimal" >
+        <br>
+        <div class="field">
+          <p-fieldset >
+            <ng-template pTemplate="header">Experiencia e inversion en proyectos similares  </ng-template>
+            <div class="row mt-2">
+              <div class="col">
+                <label class="block"
+                  >Años de experiencia <span class="text-danger">*</span></label
+                >
+                <p-inputNumber
+                  formControlName = "yearExperience"
+                  [showButtons]="true"
+                  buttonLayout="horizontal"
+                  [class.ng-dirty]="inputValid('yearExperience')"
+                  class="mt-1"
+                  inputId="horizontal"
+                  spinnerMode="horizontal"
+                  [step]="1"
+                  decrementButtonClass="p-button-danger"
+                  incrementButtonClass="p-button-success"
+                  incrementButtonIcon="pi pi-plus"
+                  decrementButtonIcon="pi pi-minus"
+                  inputId="minmax-buttons"
+                  [min]="0"
+                  [max]="100">
 
+
+              </p-inputNumber>
+              <small *ngIf="inputValid('yearExperience')" class="p-error block">{{
+                messageError("yearExperience")
+              }}</small>
+              </div>
+              <div class="col">
+                <label class="block"
+                  >Inversion en proyectos similiares<span class="text-danger"> *</span></label
+                >
+                <p-inputNumber
+                  formControlName = "inversionproject"
+                  class="mt-1"
+                  [showButtons]="true"
+                  inputId="horizontal"
+                  spinnerMode="horizontal"
+                  [step]="1"
+                  [class.ng-dirty]="inputValid('inversionproject')"
+                  [min]="1000"
+                  [max]="500000">
+                </p-inputNumber>
+                <small *ngIf="inputValid('inversionproject')" class="p-error block">{{
+                  messageError("inversionproject")
+                }}</small>
+            </div>
+            </div>
+        </p-fieldset>
+        </div>
+        <div class="col">
+          <label class="block"
+            >Tiempo estimado en dias para presentacion formal<span class="text-danger"> *</span></label
+          >
+          <p-inputNumber
+            formControlName = "timeProposal"
+            [class.ng-dirty]="inputValid('timeProposal')"
+            mode="decimal"
+            [showButtons]="true"
+            inputId="minmax-buttons"
+            [min]="0"
+            [max]="120">
           </p-inputNumber>
-          <small *ngIf="inputValid('yearExperience')" class="p-error block">{{
-            messageError("yearExperience")
+          <small *ngIf="inputValid('timeProposal')" class="p-error block">{{
+            messageError("timeProposal")
           }}</small>
-          </div>
-          <div class="col">
-            <label class="block"
-              >Tiempo propuesta<span class="text-danger"> *</span></label
-            >
-            <p-inputNumber
-              formControlName = "timeProposal"
-              [class.ng-dirty]="inputValid('timeProposal')"
-              mode="decimal"
-              [showButtons]="true"
-              inputId="minmax-buttons"
-              [min]="0"
-              [max]="120">
-            </p-inputNumber>
-            <small *ngIf="inputValid('timeProposal')" class="p-error block">{{
-              messageError("timeProposal")
-            }}</small>
-        </div>
-        </div>
+      </div>
         <div class="field">
           <label class="block"
             >Capacidad para financiar el proyecto <span class="text-danger">*</span></label
@@ -144,7 +169,7 @@
   </form>
   <ng-template pTemplate="footer">
     <p-button
-      (click)="!loading ?  saveRegSoli() : null"
+      (click)="!loading ? regsoliService._isEdit ? editRegSoli() : saveRegSoli() : null"
       styleClass="p-button-sm"
       label="Guardar"
       icon="pi pi-save"

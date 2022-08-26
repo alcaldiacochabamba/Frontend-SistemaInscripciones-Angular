@@ -20,6 +20,7 @@ export interface Regsoli {
   typeConstitution: string;
   projectPlace:     string;
   yearExperience:   number;
+  inversionproject:  number;
   timeProposal:     number;
   financing:        number;
   status:           number;

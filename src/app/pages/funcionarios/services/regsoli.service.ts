@@ -4,7 +4,7 @@ import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { GetUserPaginate, Users } from '../interfaces/users.interface';
 import { GetSoliPaginated, Regsoli } from '../interfaces/regsoli.interface';
-
+const base_url_public =  environment.base_url_public;
 const base_url =  environment.base_url;
 
 @Injectable({
@@ -58,5 +58,17 @@ export class RegsoliService {
     const url = `${base_url}/dewey/deweysPaginate?status=${status?1:0}&page=${page}&per_page=${per_page}`;
     return this.http.get<GetSoliPaginated>(url, this.headerToken);
   }
+
+  getNewPaginaPdfOpen(regsoli: Regsoli) {
+    const url = `${base_url_public}/verPDF?id_s=${regsoli.id}`;
+    window.open(url, '_blank');
+  }
+
+  puUpdateRegSoli(regsoli: Regsoli, id_regsoli:number) {
+    const url = `${base_url}/regsoli/update/${id_regsoli}`;
+    return this.http.put(url,regsoli,this.headerToken);
+  }
+
+  //NO HAY EDITAR NO HICISTE ES F
 
 }
